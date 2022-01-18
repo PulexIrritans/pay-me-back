@@ -15,7 +15,8 @@ function createGroup(count) {
     let group = [];
     let diff = 0;
     for (let i=0; i<count; i++) {
-        group.push({name: nameArray[i], amount: amountArray[i], difference: averagePaid-amountArray[i]}); 
+        (averagePaid>amountArray[i]) ? diff = averagePaid-amountArray[i] : diff = amountArray[i]-averagePaid;
+        group.push({name: nameArray[i], amount: amountArray[i], difference: diff}); 
     }
     return group;
 };
@@ -26,27 +27,24 @@ const calculateTotalAmountPaid = function(array) {
 },0);
 };
 
-// This part you don't need to look at as the problem is already present in the createGroup function above.
-// And especially there the difference is not calculated correctly.
-// However you might use the next section before the next comment for console.log output.
 
 const averagePaid = (calculateTotalAmountPaid(amountArray)/groupSize);
 const group = createGroup(groupSize);
 
-const givers = group.filter(person => person.difference>0);
-const receivers = group.filter(person => person.difference<0);
+const givers = group.filter(person => person.difference<averagePaid);
+const receivers = group.filter(person => person.difference>averagePaid);
 
 const orderedGivers = givers.sort((a,b) => a.difference> b.difference ? 1 : -1);
-const orderedReceivers = receivers.sort((a,b) => a.difference<b.difference ? 1 : -1);
+const orderedReceivers = receivers.sort((a,b) => a.difference>b.difference ? 1 : -1);
 
 console.log(group)
 console.log(orderedGivers);
 console.log(orderedReceivers);
 console.log(averagePaid);
-console.log(typeof
 
 
-// Really not relevant!    
+
+// This would need to be reworked as both receivers and givers now only have positive values for their differences. 
 
 let payments = [];
 for (let i=0; i<=orderedReceivers.length-1; i++) {
