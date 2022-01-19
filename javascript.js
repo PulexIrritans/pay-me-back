@@ -50,21 +50,21 @@ let payback;
 orderedReceivers.forEach(oreceiver => {
     orderedGivers.forEach(ogiver => {
         payback = oreceiver.difference - ogiver.difference;
-        console.log(payback);
-        if (payback > 0 && ogiver.difference !=0) {
+        console.log("Payback", payback);
+        console.log("current giver difference", ogiver.difference)
+        if (oreceiver.difference > ogiver.difference && ogiver.difference != 0) {
             payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: ogiver.difference});
             oreceiver.difference = oreceiver.difference - ogiver.difference;
             ogiver.difference = 0;
-
-        } else if (payback < 0 && Math.abs(payback) != ogiver.difference && oreceiver.difference !=0) {
+        } else if (ogiver.difference > oreceiver.difference && oreceiver.difference != 0) {
             payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: oreceiver.difference});
-            ogiver.difference -= oreceiver.difference;
+            ogiver.difference = ogiver.difference - oreceiver.difference;
             oreceiver.difference = 0;
-        } else if (oreceiver.difference !=0) {
-            payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: oreceiver.difference})
+        } else if (oreceiver.difference === ogiver.difference && oreceiver.difference != 0) {
+            payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: oreceiver.difference});
             ogiver.difference = 0;
             oreceiver.difference = 0;
-        };
+        }
     });
     });
 
