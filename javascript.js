@@ -2,6 +2,7 @@
 // The two arrays should then be created from the user input provided via UI.
 // So that's also why there is no validation for the prompt statements.
 
+
 const groupSize = prompt("Please enter your group size");
 let nameArray = [];
 let amountArray = [];
@@ -13,10 +14,8 @@ for (let i=0; i<groupSize; i++) {
 
 function createGroup(count) {
     let group = [];
-    let diff = 0;
     for (let i=0; i<count; i++) {
-        (averagePaid>amountArray[i]) ? diff = averagePaid-amountArray[i] : diff = amountArray[i]-averagePaid;
-        group.push({name: nameArray[i], amount: amountArray[i], difference: diff}); 
+        group.push({name: nameArray[i], amount: amountArray[i], difference: amountArray[i]-averagePaid}); 
     }
     return group;
 };
@@ -27,41 +26,46 @@ const calculateTotalAmountPaid = function(array) {
 },0);
 };
 
-
 const averagePaid = (calculateTotalAmountPaid(amountArray)/groupSize);
 const group = createGroup(groupSize);
 
-const givers = group.filter(person => person.difference<averagePaid);
-const receivers = group.filter(person => person.difference>averagePaid);
+// rewrite the following in order to get rid of the direct reference to the original group
 
-const orderedGivers = givers.sort((a,b) => a.difference> b.difference ? 1 : -1);
-const orderedReceivers = receivers.sort((a,b) => a.difference>b.difference ? 1 : -1);
+const givers = group.filter(person => person.difference<0);
+const receivers = group.filter(person => person.difference>0);
 
-console.log(group)
-console.log(orderedGivers);
-console.log(orderedReceivers);
-console.log(averagePaid);
+const orderedGivers = givers.sort((a,b) => a.difference > b.difference ? 1 : -1);
+const orderedReceivers = receivers.sort((a,b) => a.difference < b.difference ? 1 : -1);
 
+orderedGivers.forEach(giver => giver.difference = Math.abs(giver.difference));
 
+console.log("Total Group", group)
+console.log("Ordered Givers", orderedGivers);
+console.log("Ordered Receivers", orderedReceivers);
+console.log("Average", averagePaid);
 
-// This would need to be reworked as both receivers and givers now only have positive values for their differences. 
 
 let payments = [];
-for (let i=0; i<=orderedReceivers.length-1; i++) {
-    for (let j=0; j<=orderedGivers.length-1; j++) {
-        let payback = orderedReceivers[i].difference + orderedGivers[j].difference;
-        if (payback>0 && payback===!orderedGivers[j].difference) {
-            payments.push({receiver: orderedReceivers[i].name, giver: orderedGivers[j].name, amount: orderedReceivers[i].difference*-1});
-            orderedReceivers[i].difference = 0;
-            orderedGivers[j].difference = payback;
-        } else if(payback>0 && payback===orderedGivers[j].difference) {
-            continue;
-        } else {
-            payments.push({receiver: orderedReceivers[i].name, giver: orderedGivers[j].name, amount: orderedGivers[j].difference});
-            orderedReceivers[i].difference -=orderedGivers[j].difference;
+let payback;
+orderedReceivers.forEach(oreceiver => {
+    orderedGivers.forEach(ogiver => {
+        payback = oreceiver.difference - ogiver.difference;
+        console.log(payback);
+        if (payback > 0 && ogiver.difference !=0) {
+            payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: ogiver.difference});
+            oreceiver.difference = oreceiver.difference - ogiver.difference;
+            ogiver.difference = 0;
+
+        } else if (payback < 0 && Math.abs(payback) != ogiver.difference && oreceiver.difference !=0) {
+            payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: oreceiver.difference});
+            ogiver.difference -= oreceiver.difference;
+            oreceiver.difference = 0;
+        } else if (oreceiver.difference !=0) {
+            payments.push({receiver: oreceiver.name, giver: ogiver.name, payment: oreceiver.difference})
+            ogiver.difference = 0;
+            oreceiver.difference = 0;
         };
-    };
-};
+    });
+    });
 
 console.log(payments);
-
