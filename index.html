@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="javascript.js" defer></script>
-    <title>Pay Me Back!</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="javascript-dom.js" defer></script>
+    <script src="javascript-logic.js" defer></script>
+    <title>Splitaa</title>
+  </head>
+  <body class="site">
+    <header>
+      <h1>Splitaa - Your tool to split bills for shared group expenses.</h1>
+    </header>
+    <main class="site-content">
+      <div class="group-form">
+        <h2>Get started with your group here!</h2>
+        <form action="" class="box">
+          <label for="groupname">Your awesome group name:</label><br />
+          <input type="text" id="groupname" name="groupname" /><br />
+          <label for="groupsize">How many people belong to your group?</label
+          ><br />
+          <input
+            type="number"
+            id="groupsize"
+            name="groupsize"
+            required
+          /><br />
+        </form>
+        <input id="group-form-btn" class="submit-btn" type="submit" value="Submit" />
+      </div>
+      <div class="payment-form">
+        <h2>Provide group member payments</h2>
+        <ol>
+          <li class="box">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" />
+              <label for="expense">Amount paid</label>
+              <input type="number" id="expense" name="expense" />
+          </li>
+        </ol>
+      </div>
+      <div class="payment-result">
+          <h2>Who pays whom how much:</h2>
+          <article  class="box">
+            <span>Name 1</span>
+            <span>No.</span>
+            <span class="arrow"></span>
+            <span>Name 2</span>
+          </article>
+          <input class="submit-btn" type="submit" value="Calculate" />
+      </div>
+    </main>
+    <footer>created with dedication and absolutely no sense for pretty design by Pulex Irritans</footer>
+  </body>
 </html>
