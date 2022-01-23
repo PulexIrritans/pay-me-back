@@ -65,6 +65,11 @@
     margin: 10px 0 10px 0;
     font-size: 1.2rem
 }
+
+    input:focus {
+        background-color: #e6e2f8;
+    }
+
     .submit-btn {
     font-weight: bold;
     font-size: 1.2rem;
@@ -77,6 +82,11 @@
     margin: 15px auto;
     padding: 0px 20px 0px 20px;
     text-align: center;
+    transition: all .07s ease;
+    }
+
+    .submit-btn:hover {
+        transform: scale(1.1);
     }
 
   .payment-form {
@@ -148,5 +158,11 @@
       position: relative;
       height: 40px;
       bottom: -10px;
+  }
+
+  a {
+      color: #272723;
+      text-decoration: none;
+      font-weight: bold;
   }
 
