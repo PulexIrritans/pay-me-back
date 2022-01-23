@@ -1,8 +1,12 @@
 // Global variables
 
-const orderedListElement = document.querySelector("ol");
+const orderedListMembersElement = document.getElementById("members");
+const orderedListPaymentsElement = document.getElementById("payment");
 const submitGroupButton = document.getElementById("group-form-btn");
 const calculatePaymentsButton = document.getElementById("calculate-payments-btn");
+const paymentResultBoxElement = document.querySelector(".payment-result");
+
+
 let groupSize = 0;
 let initialAveragePaid = 0;
 let nameArray = [];
@@ -26,7 +30,7 @@ function createPaymentForms(count) {
     
     for(let i=0; i<count; i++) {
         const newListElement = document.createElement("li");
-        orderedListElement.append(newListElement);
+        orderedListMembersElement.append(newListElement);
         newListElement.classList.add("box");
 
         const listElementn = document.getElementsByTagName("li")[i];
@@ -64,19 +68,80 @@ function createPaymentForms(count) {
 
 };
 
+document.getElement
+
+// Function to dynamically create payment result output
+
+function showPaymentResults(array) {
+    const groupNameInput = document.getElementById("groupname").value;
+    const newHeaderElement = document.createElement("h3");
+    newHeaderElement.innerText = groupNameInput+" - Thank you for using this tool.";
+    paymentResultBoxElement.append(newHeaderElement);
+
+    const newListPaymentsHeader1 = document.createElement("th");
+    newListPaymentsHeader1.innerText = "Giver";
+    orderedListPaymentsElement.append(newListPaymentsHeader1);
+
+    const newListPaymentsHeader2 = document.createElement("th");
+    newListPaymentsHeader2.innerText = "Amount";
+    orderedListPaymentsElement.append(newListPaymentsHeader2);
+
+    const newListPaymentsHeader3 = document.createElement("th");
+    orderedListPaymentsElement.append(newListPaymentsHeader3);
+
+    const newListPaymentsHeader4 = document.createElement("th");
+    newListPaymentsHeader4.innerText = "Receiver";
+    orderedListPaymentsElement.append(newListPaymentsHeader4);
+
+
+    for (let i=0; i<=array.length-1; i++) {
+        
+        newListPaymentsElement = document.createElement("tr");
+        orderedListPaymentsElement.append(newListPaymentsElement);
+
+        const listElementn = orderedListPaymentsElement.getElementsByTagName("tr")[i];
+
+        const newFirstSpanElement = document.createElement("td");
+        newFirstSpanElement.innerText = array[i].giver+": ";
+        const newSecondSpanElement = document.createElement("td");
+        newSecondSpanElement.innerText = (array[i].payment).toFixed(2)+" ";
+        const newThirdSpanElement = document.createElement("td");
+        setAttributes(newThirdSpanElement, {
+            id: "arrow"
+        })
+        const newFourthSpanElement = document.createElement("td");
+        newFourthSpanElement.innerText = " "+array[i].receiver;
+
+        listElementn.append(newFirstSpanElement);
+        listElementn.append(newSecondSpanElement);
+        listElementn.append(newThirdSpanElement);
+        listElementn.append(newFourthSpanElement);
+    };
+};
+
+
 // Event Listeners
 
 submitGroupButton.onclick = function() {
-    orderedListElement.innerHTML = "";
+    calculatePaymentsButton.style.display = "block";
+    orderedListPaymentsElement.style.display = "none";
+    orderedListMembersElement.innerHTML = "";
+    orderedListPaymentsElement.innerHTML = "";
     groupSize = document.getElementById("groupsize").value;
     createPaymentForms(groupSize);
 }
 
 calculatePaymentsButton.onclick = function() {
+
+    orderedListPaymentsElement.style.display = "block";
+    orderedListPaymentsElement.innerHTML = "";
+    initialAveragePaid = 0;
+    nameArray = [];
+    amountArray = [];
+    payments = [];
+    payback =0;
     getGroupDetails(groupSize);
-    console.log(calculatePayments(groupSize));
+    const paymentResult = calculatePayments(groupSize);
+    showPaymentResults(paymentResult);
 };
-
-
-
 

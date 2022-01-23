@@ -21,35 +21,31 @@
     </header>
     <main class="site-content">
       <div class="group-form">
-        <h2>Get started with your group here!</h2>
+        <h2>1. Get started with your group here!</h2>
         <form action="" class="box">
           <label for="groupname">Your awesome group name:</label><br />
           <input type="text" id="groupname" name="groupname" /><br />
-          <label for="groupsize">How many people belong to your group?</label
-          ><br />
+          <label for="groupsize">How many people belong to your group?*</label>
+          <br />
           <input
             type="number"
             id="groupsize"
             name="groupsize"
-            required
-          /><br />
+            required/><span></span>
+          <br />
         </form>
         <input id="group-form-btn" class="submit-btn" type="submit" value="Submit" />
       </div>
       <div class="payment-form">
-        <h2>Provide group member payments</h2>
-        <ol>
+        <h2>2. Provide group member payments</h2>
+        <ol id="members">
         </ol>
       </div>
       <div class="payment-result">
-          <h2>Who pays whom how much:</h2>
+          <h2 id="who">3. Who pays whom how much?</h2>
           <input id= "calculate-payments-btn" class="submit-btn" type="submit" value="Calculate" />
-          <article  class="box">
-            <span>Name 1</span>
-            <span>No.</span>
-            <span class="arrow"></span>
-            <span>Name 2</span>
-          </article>
+          <table  class="box" id="payment">
+          </table>
       </div>
     </main>
     <footer>created with dedication and absolutely no sense for pretty design by Pulex Irritans</footer>
