@@ -65,11 +65,7 @@
     margin: 10px 0 10px 0;
     font-size: 1.2rem
 }
-
-    input:focus {
-        background-color: #e6e2f8;
-    }
-
+    
     .submit-btn {
     font-weight: bold;
     font-size: 1.2rem;

@@ -38,11 +38,13 @@ function calculateInitialAmountPaid(amountArray) {
   }, 0);
 };
 
+// Core function
+
 function calculatePayments(groupSize) {
+    console.log(calculateInitialAmountPaid(amountArray)/groupSize)
   const groupMembers = createGroup(
     groupSize,
-    calculateInitialAmountPaid(amountArray)/groupSize
-  );
+    parseFloat(calculateInitialAmountPaid(amountArray)/groupSize).toFixed(2));
 
   // Splits total group into two sub arrays - givers and receivers.
 
