@@ -1,0 +1,6 @@
+{
+  "liveServer.settings.port": 5503,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "workbench.editor.highlightModifiedTabs": true
+}
